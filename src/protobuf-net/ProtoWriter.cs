@@ -827,7 +827,7 @@ namespace ProtoBuf
         /// Writes a double-precision number to the stream; supported wire-types: Fixed32, Fixed64
         /// </summary>
         public
-#if !FEAT_SAFE
+#if unsafe
             unsafe
 #endif
 
@@ -845,7 +845,7 @@ namespace ProtoBuf
                     ProtoWriter.WriteSingle(f, writer);
                     return;
                 case WireType.Fixed64:
-#if FEAT_SAFE
+#if !unsafe
                     ProtoWriter.WriteInt64(BitConverter.ToInt64(BitConverter.GetBytes(value), 0), writer);
 #else
                     ProtoWriter.WriteInt64(*(long*)&value, writer);
@@ -859,7 +859,7 @@ namespace ProtoBuf
         /// Writes a single-precision number to the stream; supported wire-types: Fixed32, Fixed64
         /// </summary>
         public
-#if !FEAT_SAFE
+#if unsafe
             unsafe
 #endif
             static void WriteSingle(float value, ProtoWriter writer)
@@ -868,7 +868,7 @@ namespace ProtoBuf
             switch (writer.wireType)
             {
                 case WireType.Fixed32:
-#if FEAT_SAFE
+#if !unsafe
                     ProtoWriter.WriteInt32(BitConverter.ToInt32(BitConverter.GetBytes(value), 0), writer);
 #else
                     ProtoWriter.WriteInt32(*(int*)&value, writer);

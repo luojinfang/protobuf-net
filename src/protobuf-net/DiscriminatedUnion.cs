@@ -5,7 +5,7 @@ namespace ProtoBuf
 {
     /// <summary>Represent multiple types as a union; this is used as part of OneOf -
     /// note that it is the caller's responsbility to only read/write the value as the same type</summary>
-    public readonly struct DiscriminatedUnionObject
+    public struct DiscriminatedUnionObject
     {
         private readonly int _discriminator;
 
@@ -25,7 +25,7 @@ namespace ProtoBuf
         /// <summary>Reset a value if the specified discriminator is assigned</summary>
         public static void Reset(ref DiscriminatedUnionObject value, int discriminator)
         {
-            if (value.Discriminator == discriminator) value = default;
+            if (value.Discriminator == discriminator) value = default(DiscriminatedUnionObject);
         }
 
         /// <summary>The discriminator value</summary>
@@ -35,16 +35,16 @@ namespace ProtoBuf
     /// <summary>Represent multiple types as a union; this is used as part of OneOf -
     /// note that it is the caller's responsbility to only read/write the value as the same type</summary>
     [StructLayout(LayoutKind.Explicit)]
-    public readonly struct DiscriminatedUnion64
+    public struct DiscriminatedUnion64
     {
-#if !FEAT_SAFE
+#if unsafe
 		unsafe static DiscriminatedUnion64()
         {
             if (sizeof(DateTime) > 8) throw new InvalidOperationException(nameof(DateTime) + " was unexpectedly too big for " + nameof(DiscriminatedUnion64));
             if (sizeof(TimeSpan) > 8) throw new InvalidOperationException(nameof(TimeSpan) + " was unexpectedly too big for " + nameof(DiscriminatedUnion64));
         }
 #endif
-		[FieldOffset(0)] private readonly int _discriminator;  // note that we can't pack further because Object needs x8 alignment/padding on x64
+        [FieldOffset(0)] private readonly int _discriminator;  // note that we can't pack further because Object needs x8 alignment/padding on x64
 
         /// <summary>The value typed as Int64</summary>
         [FieldOffset(8)] public readonly long Int64;
@@ -95,7 +95,7 @@ namespace ProtoBuf
         /// <summary>Reset a value if the specified discriminator is assigned</summary>
         public static void Reset(ref DiscriminatedUnion64 value, int discriminator)
         {
-            if (value.Discriminator == discriminator) value = default;
+            if (value.Discriminator == discriminator) value = default(DiscriminatedUnion64);
         }
         /// <summary>The discriminator value</summary>
         public int Discriminator => _discriminator;
@@ -104,9 +104,9 @@ namespace ProtoBuf
     /// <summary>Represent multiple types as a union; this is used as part of OneOf -
     /// note that it is the caller's responsbility to only read/write the value as the same type</summary>
     [StructLayout(LayoutKind.Explicit)]
-    public readonly struct DiscriminatedUnion128Object
+    public struct DiscriminatedUnion128Object
     {
-#if !FEAT_SAFE
+#if unsafe
 		unsafe static DiscriminatedUnion128Object()
         {
             if (sizeof(DateTime) > 16) throw new InvalidOperationException(nameof(DateTime) + " was unexpectedly too big for " + nameof(DiscriminatedUnion128Object));
@@ -115,7 +115,7 @@ namespace ProtoBuf
         }
 #endif
 
-		[FieldOffset(0)] private readonly int _discriminator;  // note that we can't pack further because Object needs x8 alignment/padding on x64
+        [FieldOffset(0)] private readonly int _discriminator;  // note that we can't pack further because Object needs x8 alignment/padding on x64
 
         /// <summary>The value typed as Int64</summary>
         [FieldOffset(8)] public readonly long Int64;
@@ -174,7 +174,7 @@ namespace ProtoBuf
         /// <summary>Reset a value if the specified discriminator is assigned</summary>
         public static void Reset(ref DiscriminatedUnion128Object value, int discriminator)
         {
-            if (value.Discriminator == discriminator) value = default;
+            if (value.Discriminator == discriminator) value = default(DiscriminatedUnion128Object);
         }
         /// <summary>The discriminator value</summary>
         public int Discriminator => _discriminator;
@@ -183,9 +183,9 @@ namespace ProtoBuf
     /// <summary>Represent multiple types as a union; this is used as part of OneOf -
     /// note that it is the caller's responsbility to only read/write the value as the same type</summary>
     [StructLayout(LayoutKind.Explicit)]
-    public readonly struct DiscriminatedUnion128
+    public struct DiscriminatedUnion128
     {
-#if !FEAT_SAFE
+#if unsafe
         unsafe static DiscriminatedUnion128()
         {
             if (sizeof(DateTime) > 16) throw new InvalidOperationException(nameof(DateTime) + " was unexpectedly too big for " + nameof(DiscriminatedUnion128));
@@ -248,7 +248,7 @@ namespace ProtoBuf
         /// <summary>Reset a value if the specified discriminator is assigned</summary>
         public static void Reset(ref DiscriminatedUnion128 value, int discriminator)
         {
-            if (value.Discriminator == discriminator) value = default;
+            if (value.Discriminator == discriminator) value = default(DiscriminatedUnion128);
         }
         /// <summary>The discriminator value</summary>
         public int Discriminator => _discriminator;
@@ -257,9 +257,9 @@ namespace ProtoBuf
     /// <summary>Represent multiple types as a union; this is used as part of OneOf -
     /// note that it is the caller's responsbility to only read/write the value as the same type</summary>
     [StructLayout(LayoutKind.Explicit)]
-    public readonly struct DiscriminatedUnion64Object
+    public struct DiscriminatedUnion64Object
     {
-#if !FEAT_SAFE
+#if unsafe
         unsafe static DiscriminatedUnion64Object()
         {
             if (sizeof(DateTime) > 8) throw new InvalidOperationException(nameof(DateTime) + " was unexpectedly too big for " + nameof(DiscriminatedUnion64Object));
@@ -321,7 +321,7 @@ namespace ProtoBuf
         /// <summary>Reset a value if the specified discriminator is assigned</summary>
         public static void Reset(ref DiscriminatedUnion64Object value, int discriminator)
         {
-            if (value.Discriminator == discriminator) value = default;
+            if (value.Discriminator == discriminator) value = default(DiscriminatedUnion64Object);
         }
         /// <summary>The discriminator value</summary>
         public int Discriminator => _discriminator;
@@ -330,7 +330,7 @@ namespace ProtoBuf
     /// <summary>Represent multiple types as a union; this is used as part of OneOf -
     /// note that it is the caller's responsbility to only read/write the value as the same type</summary>
     [StructLayout(LayoutKind.Explicit)]
-    public readonly struct DiscriminatedUnion32
+    public struct DiscriminatedUnion32
     {
         [FieldOffset(0)] private readonly int _discriminator;
 
@@ -363,7 +363,7 @@ namespace ProtoBuf
         /// <summary>Reset a value if the specified discriminator is assigned</summary>
         public static void Reset(ref DiscriminatedUnion32 value, int discriminator)
         {
-            if (value.Discriminator == discriminator) value = default;
+            if (value.Discriminator == discriminator) value = default(DiscriminatedUnion32);
         }
         /// <summary>The discriminator value</summary>
         public int Discriminator => _discriminator;
@@ -372,7 +372,7 @@ namespace ProtoBuf
     /// <summary>Represent multiple types as a union; this is used as part of OneOf -
     /// note that it is the caller's responsbility to only read/write the value as the same type</summary>
     [StructLayout(LayoutKind.Explicit)]
-    public readonly struct DiscriminatedUnion32Object
+    public struct DiscriminatedUnion32Object
     {
         [FieldOffset(0)] private readonly int _discriminator;
 
@@ -409,7 +409,7 @@ namespace ProtoBuf
         /// <summary>Reset a value if the specified discriminator is assigned</summary>
         public static void Reset(ref DiscriminatedUnion32Object value, int discriminator)
         {
-            if (value.Discriminator == discriminator) value = default;
+            if (value.Discriminator == discriminator) value = default(DiscriminatedUnion32Object);
         }
         /// <summary>The discriminator value</summary>
         public int Discriminator => _discriminator;

@@ -1246,7 +1246,7 @@ namespace ProtoBuf.Meta
         readonly Dictionary<Type, KnownTypeKey> knownKeys = new Dictionary<Type, KnownTypeKey>();
 
         // essentially just a ValueTuple<int,Type> - I just don't want the extra dependency
-        private readonly struct KnownTypeKey
+        private struct KnownTypeKey
         {
             public KnownTypeKey(Type type, int key)
             {
